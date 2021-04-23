@@ -1,0 +1,70 @@
+.header {
+  display: flex;
+  height: 52px;
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+}
+.left {
+  flex: 1;
+  background-color: white;
+}
+.mid {
+  flex: 4;
+}
+.right {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  background-color: white;
+}
+.mid li:nth-child(1) {
+  padding-top: 6px;
+}
+.mid li:nth-child(3) {
+  margin-left: 180px;
+  display: initial;
+}
+.mid li:nth-child(4) {
+  margin-left: 8px;
+  width: 72px;
+  display: inline-block;
+}
+.mid li:nth-child(n + 5) {
+  margin-left: 22px;
+  width: 32px;
+  display: inline;
+  float: right;
+}
+:host ::ng-deep .ant-badge {
+  font-size: 20px;
+  position: relative;
+  top: 6px;
+}
+:host ::ng-deep .ant-input-affix-wrapper {
+  width: 300px;
+  border-radius: 16px;
+}
+:host ::ng-deep .ant-avatar {
+  position: relative;
+  left: 22px;
+}
+.login-form {
+  max-width: 300px;
+}
+
+.login-form-margin {
+  margin-bottom: 16px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
+::ng-deep .ant-col {
+  width: 100%;
+  margin-bottom: 20px;
+}

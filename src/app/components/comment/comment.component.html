@@ -1,0 +1,175 @@
+<div [ngStyle]="{ display: expend == false ? 'none' : 'unset' }">
+  <!-- 操作按钮 -->
+  <div class="comment-title">
+    <span class="totalTitle">{{ commentsCount }} 条评论</span>
+    <button nz-button nzType="text" class="changeBtn">
+      <i
+        nz-icon
+        [nzType]="'swap'"
+        [nzTheme]="'outline'"
+        [nzTwotoneColor]="'#eb2f96'"
+      ></i
+      >切换为默认排序方式
+    </button>
+  </div>
+  <!-- 评论列表 -->
+  <ng-template #commentTemplateRef let-comments="comments">
+    <nz-skeleton
+      *ngIf="comments.length == 0"
+      [nzAvatar]="true"
+      [nzActive]="true"
+      [nzParagraph]="{ rows: 4 }"
+    ></nz-skeleton>
+    <div *ngIf="comments.length">
+      <div *ngFor="let comment of comments">
+        <span class="comment-time">{{ comment.time }}</span>
+        <nz-comment
+          [nzAuthor]="comment.user.aliasName"
+          [nzDatetime]="comment.replyTo"
+        >
+          <nz-avatar
+            nz-comment-avatar
+            nzIcon="user"
+            [nzSrc]="comment.user.avatar"
+          ></nz-avatar>
+          <nz-comment-content>
+            <p>{{ comment.content }}</p>
+          </nz-comment-content>
+          <!-- 操作 -->
+          <nz-comment-action
+            ><button
+              nz-button
+              nzType="text"
+              [ngClass]="comment.liked == 1 ? 'like' : ''"
+            >
+              <i
+                nz-icon
+                [nzType]="'like'"
+                [nzTheme]="'outline'"
+                [nzTwotoneColor]="'#eb2f96'"
+              ></i
+              >{{ comment.likeCount }}
+            </button></nz-comment-action
+          >
+          <nz-comment-action
+            ><button
+              nz-button
+              nzType="text"
+              [ngClass]="comment.liked == -1 ? 'like' : ''"
+            >
+              <i
+                nz-icon
+                [nzType]="'dislike'"
+                [nzTheme]="'outline'"
+                [nzTwotoneColor]="'#eb2f96'"
+              ></i
+              >{{ comment.dislikeCount }}
+            </button></nz-comment-action
+          >
+          <nz-comment-action
+            ><button nz-button nzType="text" (click)="showReply(comment)">
+              <i
+                nz-icon
+                [nzType]="'comment'"
+                [nzTheme]="'outline'"
+                [nzTwotoneColor]="'#eb2f96'"
+              ></i
+              >876
+            </button></nz-comment-action
+          >
+          <nz-comment-action
+            ><button nz-button nzType="text">
+              <i
+                nz-icon
+                [nzType]="'form'"
+                [nzTheme]="'outline'"
+                [nzTwotoneColor]="'#eb2f96'"
+              ></i></button
+          ></nz-comment-action>
+          <div class="second-comment">
+            <ng-container
+              *ngIf="comment.commentReply && comment.commentReply.length"
+            >
+              <ng-template
+                [ngTemplateOutlet]="commentTemplateRef"
+                [ngTemplateOutletContext]="{ comments: comment.commentReply }"
+              >
+              </ng-template>
+            </ng-container>
+          </div>
+        </nz-comment>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template
+    [ngTemplateOutlet]="commentTemplateRef"
+    [ngTemplateOutletContext]="{ comments: comments }"
+  >
+  </ng-template>
+
+  <!-- 添加评论 -->
+  <nz-comment>
+    <nz-avatar
+      nz-comment-avatar
+      nzIcon="user"
+      [nzSrc]="
+        'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
+      "
+    ></nz-avatar>
+    <nz-comment-content>
+      <nz-form-item>
+        <nz-mention [nzSuggestions]="suggestions" class="add-comment">
+          <textarea
+            nz-input
+            [nzAutosize]="{ minRows: 1, maxRows: 10 }"
+            [(ngModel)]="addCommment"
+            nzMentionTrigger
+          >
+          </textarea>
+        </nz-mention>
+      </nz-form-item>
+      <nz-form-item>
+        <button
+          nz-button
+          nzType="primary"
+          [nzLoading]="submitting"
+          [disabled]="!addCommment"
+          (click)="commmentSubmit()"
+        >
+          发布
+        </button>
+      </nz-form-item>
+    </nz-comment-content>
+  </nz-comment>
+</div>
+<!-- 评论弹窗 -->
+<nz-modal
+  [nzMaskClosable]="false"
+  [(nzVisible)]="isVisible"
+  [nzTitle]="modalTitle"
+  [nzStyle]="{ width: '700px' }"
+  [nzMaskStyle]="{ overflow: 'unset' }"
+  [nzContent]="modalContent"
+  [nzFooter]="null"
+  (nzOnCancel)="handleCancel()"
+>
+  <ng-template #modalTitle>查看对话</ng-template>
+
+  <ng-template #modalContent>
+    <!-- 当前replay -->
+    <app-replay-card [articals]="currentReplay"></app-replay-card>
+    <nz-divider nzText=" ** 条回复"></nz-divider>
+
+    <!-- 当前replay 的回复-->
+    <nz-skeleton
+      *ngIf="moreComments.length == 0"
+      [nzAvatar]="true"
+      [nzActive]="true"
+      [nzParagraph]="{ rows: 4 }"
+    ></nz-skeleton>
+    <div *ngIf="moreComments.length">
+      <app-replay-card [articals]="moreComments"></app-replay-card>
+    </div>
+  </ng-template>
+</nz-modal>

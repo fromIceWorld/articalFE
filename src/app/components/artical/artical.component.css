@@ -1,0 +1,62 @@
+.artical-card {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 14px 6px 0;
+}
+.avatar {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  border-radius: 50px;
+}
+.card-header {
+  display: flex;
+  margin-bottom: 12px;
+}
+.card-header p {
+  margin-bottom: 0;
+}
+.card-header p:first-child {
+  color: rgba(0, 0, 0, 0.85);
+}
+.card-header p:last-child {
+  color: rgba(0, 0, 0, 0.45);
+}
+.card-content {
+  margin-bottom: 10px;
+}
+.card-foot {
+  margin-bottom: 6px;
+}
+
+.setting-box:nth-child(n + 2) {
+  border-left: 1px solid #f0f0f0;
+}
+.setting-count {
+  margin-left: 6px;
+}
+.right.nz-avatar {
+  margin-left: 22px;
+}
+.container-artical {
+  background-color: white;
+}
+
+.inner-box {
+  background: white;
+}
+.comment-card {
+  margin-bottom: 16px;
+  box-shadow: rgb(18 18 18 / 10%) 0px 1px 3px;
+  padding: 0 10px;
+}
+.des-container {
+  width: 100%;
+}
+.artical-time {
+  float: right;
+  font-size: 14px;
+  color: #8590a6;
+}
+.like {
+  color: crimson;
+}

@@ -1,0 +1,54 @@
+::ng-deep.ant-comment-inner {
+  border-top: 1px solid #f0f0f0;
+  padding: 6px 0;
+}
+.add-comment {
+  width: 100%;
+  margin-bottom: 16px;
+}
+:host ::ng-deep .ant-comment-actions:hover {
+  li:nth-child(n + 2) {
+    opacity: 1;
+  }
+}
+:host ::ng-deep .ant-comment-actions {
+  li:nth-child(n + 2) {
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+}
+.comment-title {
+  padding-left: 10px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.totalTitle {
+  font-size: 15px;
+  font-weight: 600;
+}
+.changeBtn {
+  color: #8590a6;
+}
+:host ::ng-deep .ant-modal-body {
+  height: calc(100vh - 100px);
+  overflow-y: scroll !important;
+}
+:host ::ng-deep .ng-trigger-modalContainer {
+  overflow: unset !important;
+}
+:host ::ng-deep .ant-modal {
+  top: 20px;
+}
+.comment-time {
+  border-top: 1px solid #f0f0f0;
+  position: relative;
+  float: right;
+  font-size: 14px;
+  padding-top: 4px;
+  color: #8590a6;
+}
+.like {
+  color: crimson;
+}

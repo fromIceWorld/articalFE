@@ -1,0 +1,10 @@
+{
+  "/suger": {
+    "target": "http://localhost:8888",
+    "secure": false,
+    "pathRewrite": {
+      "/suger": ""
+    }
+  },
+  "changeOrigin": false
+}

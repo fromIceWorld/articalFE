@@ -1,0 +1,120 @@
+<div class="header">
+  <div class="left">left</div>
+  <div class="mid">
+    <ul nz-menu nzMode="horizontal">
+      <li nz-menu-item nzMatchRouter>
+        <a [routerLink]="['/']">首页</a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a [routerLink]="['/', 'components', 'menu', 'zh']">发现</a>
+      </li>
+      <li>
+        <nz-input-group [nzSuffix]="suffixIconSearch">
+          <input type="text" nz-input placeholder="input search text" />
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <i nz-icon nzType="search"></i>
+        </ng-template>
+      </li>
+      <li>
+        <button nz-button nzType="primary" nzShape="round">发布</button>
+      </li>
+
+      <li>
+        <a>
+          <nz-badge [nzCount]="5">
+            <i nz-icon nzType="message" nzTheme="twotone"></i>
+          </nz-badge>
+        </a>
+      </li>
+      <li>
+        <a>
+          <nz-badge [nzCount]="5" style="margin-right: 24px">
+            <i nz-icon nzType="bell" nzTheme="twotone"></i>
+          </nz-badge>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="right">
+    <a nz-dropdown [nzDropdownMenu]="menu" (click)="login()">
+      <nz-avatar
+        [nzShape]="'square'"
+        [nzSrc]="user.avatar"
+        [nzIcon]="'user'"
+      ></nz-avatar>
+    </a>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu nzSelectable *ngIf="user.isLogin">
+        <li nz-menu-item>
+          <i nz-icon nzType="user" nzTheme="outline"></i>我的主页
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="setting" nzTheme="outline"></i>设置
+        </li>
+        <li nz-menu-item (click)="loginOut()">
+          <i nz-icon nzType="poweroff" nzTheme="outline"></i>退出
+        </li>
+      </ul>
+    </nz-dropdown-menu>
+  </div>
+</div>
+<!-- 登录 -->
+<nz-modal
+  [(nzVisible)]="modalShow"
+  nzTitle="登录"
+  (nzOnCancel)="handleCancel()"
+  [nzFooter]="null"
+  [nzMaskClosable]="false"
+>
+  <form
+    nz-form
+    [formGroup]="loginForm"
+    class="login-form"
+    (ngSubmit)="submitForm()"
+  >
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your username!">
+        <nz-input-group nzPrefixIcon="user">
+          <input
+            type="text"
+            nz-input
+            formControlName="userName"
+            placeholder="Username"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your passWord!">
+        <nz-input-group nzPrefixIcon="lock">
+          <input
+            type="password"
+            nz-input
+            formControlName="passWord"
+            placeholder="passWord"
+          />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <div nz-row class="login-form-margin">
+      <div nz-col [nzSpan]="12">
+        <label nz-checkbox>
+          <span>Remember me</span>
+        </label>
+      </div>
+      <div nz-col [nzSpan]="12">
+        <a class="login-form-forgot">Forgot password</a>
+      </div>
+    </div>
+    <button
+      nz-button
+      [disabled]="!loginForm.valid"
+      class="login-form-button login-form-margin"
+      [nzType]="'primary'"
+    >
+      Log in
+    </button>
+    Or <a> register now! </a>
+  </form>
+</nz-modal>
