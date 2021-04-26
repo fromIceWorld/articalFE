@@ -15,17 +15,17 @@
   <!-- 评论列表 -->
   <ng-template #commentTemplateRef let-comments="comments">
     <nz-skeleton
-      *ngIf="comments.length == 0"
+      *ngIf="skeletonLoding"
       [nzAvatar]="true"
       [nzActive]="true"
       [nzParagraph]="{ rows: 4 }"
     ></nz-skeleton>
-    <div *ngIf="comments.length">
+    <div *ngIf="!skeletonLoding">
       <div *ngFor="let comment of comments">
         <span class="comment-time">{{ comment.time }}</span>
         <nz-comment
           [nzAuthor]="comment.user.aliasName"
-          [nzDatetime]="comment.replyTo"
+          [nzDatetime]="comment.reply ? ' @' + comment.reply.aliasName : ''"
         >
           <nz-avatar
             nz-comment-avatar
@@ -40,6 +40,7 @@
             ><button
               nz-button
               nzType="text"
+              (click)="likeIt(comment, likeStatus.like)"
               [ngClass]="comment.liked == 1 ? 'like' : ''"
             >
               <i
@@ -55,6 +56,7 @@
             ><button
               nz-button
               nzType="text"
+              (click)="likeIt(comment, likeStatus.dislike)"
               [ngClass]="comment.liked == -1 ? 'like' : ''"
             >
               <i
@@ -78,14 +80,20 @@
             </button></nz-comment-action
           >
           <nz-comment-action
-            ><button nz-button nzType="text">
+            ><button nz-button nzType="text" (click)="expendReply(comment)">
               <i
                 nz-icon
-                [nzType]="'form'"
+                [nzType]="comment.replyInput ? '' : 'form'"
                 [nzTheme]="'outline'"
                 [nzTwotoneColor]="'#eb2f96'"
-              ></i></button
-          ></nz-comment-action>
+              ></i
+              >{{ comment.replyInput ? "取消回复" : "回复" }}
+            </button></nz-comment-action
+          >
+          <!-- 回复输入框 -->
+          <div *ngIf="comment.replyInput">
+            ----------二级回复输入框----------
+          </div>
           <div class="second-comment">
             <ng-container
               *ngIf="comment.commentReply && comment.commentReply.length"
@@ -122,6 +130,7 @@
         <nz-mention [nzSuggestions]="suggestions" class="add-comment">
           <textarea
             nz-input
+            placeholder="写下你的评论..."
             [nzAutosize]="{ minRows: 1, maxRows: 10 }"
             [(ngModel)]="addCommment"
             nzMentionTrigger

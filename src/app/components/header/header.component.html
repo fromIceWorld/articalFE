@@ -17,7 +17,14 @@
         </ng-template>
       </li>
       <li>
-        <button nz-button nzType="primary" nzShape="round">发布</button>
+        <button
+          nz-button
+          nzType="primary"
+          nzShape="round"
+          (click)="canRelease()"
+        >
+          发布
+        </button>
       </li>
 
       <li>
@@ -117,4 +124,36 @@
     </button>
     Or <a> register now! </a>
   </form>
+</nz-modal>
+<!-- 发布文章 -->
+<nz-modal
+  class="release-modal"
+  [(nzVisible)]="releaseInput"
+  nzTitle=""
+  (nzOnCancel)="releaseCancel()"
+  [nzFooter]="null"
+  [nzMaskClosable]="false"
+>
+  <nz-comment>
+    <nz-avatar
+      nz-comment-avatar
+      nzIcon="user"
+      [nzSrc]="user.avatar"
+    ></nz-avatar>
+    <nz-comment-content>
+      <nz-form-item>
+        <textarea [(ngModel)]="releaseContent" nz-input rows="4"></textarea>
+      </nz-form-item>
+      <nz-form-item>
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="!releaseContent.length"
+          (click)="subRelease()"
+        >
+          发布
+        </button>
+      </nz-form-item>
+    </nz-comment-content>
+  </nz-comment>
 </nz-modal>

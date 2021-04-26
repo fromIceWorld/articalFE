@@ -21,13 +21,16 @@ export class HeaderComponent implements OnInit {
   user: UserInfo;
   modalShow: boolean = false;
   loginForm!: FormGroup;
-
+  releaseInput: boolean = false;
+  releaseContent: string = '';
   constructor(
     private $store: Store<AppStoreModule>,
     private fb: FormBuilder,
     private service: BaseService
   ) {}
-
+  releaseCancel() {
+    this.releaseInput = !this.releaseInput;
+  }
   ngOnInit(): void {
     this.$store
       .pipe(select('user' as any), select(getUserInfo))
@@ -38,6 +41,22 @@ export class HeaderComponent implements OnInit {
     this.loginForm = this.fb.group({
       userName: ['cbb', [Validators.required]],
       passWord: ['123456', [Validators.required]],
+    });
+  }
+  // release弹窗
+  canRelease() {
+    this.releaseInput = true;
+  }
+  // 发布
+  subRelease() {
+    const params = {
+      content: this.releaseContent,
+    };
+
+    this.service.release(params).subscribe((res: Respond) => {
+      if (res.code == 200) {
+        this.releaseInput = false;
+      }
     });
   }
   login() {

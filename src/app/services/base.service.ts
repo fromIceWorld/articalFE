@@ -15,12 +15,24 @@ export class BaseService {
   commentList(params): Observable<any> {
     return this.http.get('/suger/comment', { params });
   }
-  // 点赞
+  // 回复
   reply(params) {
     return this.http.post('/suger/reply', { params });
+  }
+  // 点赞
+  liked(params) {
+    return this.http.post('/suger/liked', { params });
+  }
+  // 添加评论
+  addComment(params) {
+    return this.http.post('/suger/addComment', { params });
   }
   // 登录
   login(form) {
     return this.http.post('/suger/login', form);
+  }
+  // 发布文章
+  release(form) {
+    return this.http.post('/suger/release', form);
   }
 }

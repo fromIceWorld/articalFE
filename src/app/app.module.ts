@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCommentModule } from 'ng-zorro-antd/comment';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { en_US, NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -27,6 +28,7 @@ registerLocaleData(en);
   declarations: [AppComponent, CommonComponent, HeaderComponent],
   imports: [
     RouterModule,
+    NzCommentModule,
     AppRouterModule,
     AppCommonModule,
     BrowserModule,

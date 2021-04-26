@@ -16,7 +16,7 @@
                   [nzParagraph]="{ rows: 4 }"
                 ></nz-skeleton>
               </div>
-
+              <!-- 文章列表 -->
               <div *ngIf="articals.length">
                 <div class="artical-card" *ngFor="let artical of articals">
                   <div class="card-header">
@@ -41,6 +41,7 @@
                       ><button
                         nz-button
                         nzType="text"
+                        (click)="likeIt(artical, likeStatus.like)"
                         [ngClass]="artical.liked == 1 ? 'like' : ''"
                       >
                         <i nz-icon nzType="like" nzTheme="outline"></i
@@ -51,6 +52,7 @@
                       ><button
                         nz-button
                         nzType="text"
+                        (click)="likeIt(artical, likeStatus.dislike)"
                         [ngClass]="artical.liked == -1 ? 'like' : ''"
                       >
                         <i nz-icon nzType="dislike" nzTheme="outline"></i
@@ -144,10 +146,13 @@
                   <!-- 评论 -->
                   <div class="comment-card">
                     <app-comment
+                      [skeletonLoding]="skeletonLoding"
                       [comments]="comments"
                       [commentsCount]="artical.commentTotal"
                       [expend]="artical.expend"
+                      [artical]="artical"
                       (close)="expend()"
+                      (refreshComment)="refreshComment(artical)"
                     ></app-comment>
                   </div>
                 </div>

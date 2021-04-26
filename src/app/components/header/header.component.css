@@ -68,3 +68,6 @@
   width: 100%;
   margin-bottom: 20px;
 }
+.release-modal ::ng-deep .ant-comment-inner {
+  border-top: none !important;
+}
